@@ -1,0 +1,24 @@
+version: "3.3"
+
+services:
+  xswitch:
+    container_name: app
+    image: centos
+    environment:
+      - GOROOT=/usr/local/go
+      - PATH=/usr/local/go/bin:/app/:$PATH
+    command: ["app"]
+    working_dir: /app
+    stdin_open: true
+    tty: true
+    ports:
+      - 1080:1080
+    volumes:
+      - .:/app
+    networks:
+      - app-network
+networks:
+  app-network:
+    ipam:
+      config:
+        - subnet: "10.16.238.0/24"
